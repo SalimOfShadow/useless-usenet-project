@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/salimofshadow/usenet-client/internal/routes/db"
-	"github.com/salimofshadow/usenet-client/internal/routes/env"
-	"github.com/salimofshadow/usenet-client/internal/routes/store"
+	"github.com/salimofshadow/usenet-client/internal/db"
+	"github.com/salimofshadow/usenet-client/internal/env"
+	"github.com/salimofshadow/usenet-client/internal/store"
 
 	"go.uber.org/zap"
 )

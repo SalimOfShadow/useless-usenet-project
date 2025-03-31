@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/salimofshadow/usenet-client/internal/routes/store"
+	"github.com/salimofshadow/usenet-client/internal/store"
 )
 
 

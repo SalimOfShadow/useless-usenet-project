@@ -12,7 +12,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
-	"github.com/salimofshadow/usenet-client/internal/routes/env"
+	"github.com/salimofshadow/usenet-client/internal/env"
 )
 
 
