@@ -13,37 +13,8 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
 	"github.com/salimofshadow/usenet-client/internal/routes/env"
-	"github.com/salimofshadow/usenet-client/internal/routes/store"
-	"go.uber.org/zap"
 )
 
-type application struct {
-	config        config
-	store         store.Storage
-	// cacheStorage  cache.Storage
-	logger        *zap.SugaredLogger
-	// mailer        mailer.Client
-	// authenticator auth.Authenticator
-}
-
-type dbConfig struct {
-	addr         string
-	maxOpenConns int
-	maxIdleConns int
-	maxIdleTime  string
-}
-
-type config struct {
-	addr        string
-	db          dbConfig
-	env         string
-	apiURL      string
-	// mail        mailConfig
-	frontendURL string
-	// auth        authConfig
-	// redisCfg    redisConfig
-	// rateLimiter ratelimiter.Config
-}
 
 func (app *application) mount() http.Handler {
 	r := chi.NewRouter()
