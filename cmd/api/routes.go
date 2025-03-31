@@ -1,4 +1,4 @@
-package routes
+package main
 
 import (
 	"context"
@@ -13,12 +13,13 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
 	"github.com/salimofshadow/usenet-client/internal/routes/env"
+	"github.com/salimofshadow/usenet-client/internal/routes/store"
 	"go.uber.org/zap"
 )
 
 type application struct {
 	config        config
-	// store         store.Storage
+	store         store.Storage
 	// cacheStorage  cache.Storage
 	logger        *zap.SugaredLogger
 	// mailer        mailer.Client
@@ -72,50 +73,16 @@ func (app *application) mount() http.Handler {
 		r.Get("/health", app.healthCheckHandler)
 
 		r.Route("/posts", func(r chi.Router) {
-			r.Use(app.AuthTokenMiddleware)
-			r.Post("/", app.createPostHandler)
+			r.Post("/", app.createArticleHandler)
 
-			r.Route("/{postID}", func(r chi.Router) {
-				r.Use(app.postsContextMiddleware)
-				r.Get("/", app.getPostHandler)
-
-				r.Patch("/", app.checkPostOwnership("moderator", app.updatePostHandler))
-				r.Delete("/", app.checkPostOwnership("admin", app.deletePostHandler))
-			})
 		})
 
-		r.Route("/users", func(r chi.Router) {
-			r.Put("/activate/{token}", app.activateUserHandler)
-
-			r.Route("/{userID}", func(r chi.Router) {
-				r.Use(app.AuthTokenMiddleware)
-
-				r.Get("/", app.getUserHandler)
-				r.Put("/follow", app.followUserHandler)
-				r.Put("/unfollow", app.unfollowUserHandler)
-			})
-
-			r.Group(func(r chi.Router) {
-				r.Use(app.AuthTokenMiddleware)
-				r.Get("/feed", app.getUserFeedHandler)
-			})
-		})
-
-		// Public routes
-		r.Route("/authentication", func(r chi.Router) {
-			r.Post("/user", app.registerUserHandler)
-			r.Post("/token", app.createTokenHandler)
-		})
 	})
 
 	return r
 }
 
 func (app *application) run(mux http.Handler) error {
-	// Docs
-	docs.SwaggerInfo.Version = version
-	docs.SwaggerInfo.Host = app.config.apiURL
-	docs.SwaggerInfo.BasePath = "/v1"
 
 	srv := &http.Server{
 		Addr:         app.config.addr,
