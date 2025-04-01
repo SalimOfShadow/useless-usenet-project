@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: usenet_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./internal/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app:
+    build: .
+    container_name: useless-usenet-server
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DB_ADDR: "postgres://postgres:postgres@db:5432/postgres?sslmode=disable"
+      DB_MAX_OPEN_CONNS: 30
+      DB_MAX_IDLE_CONNS: 30
+      DB_MAX_IDLE_TIME: "15m"
+      ENV: "development"
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:
+    driver: local
