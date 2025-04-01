@@ -13,7 +13,7 @@
 - A server that stores **newsgroups** with a structure similar to **actual Usenet news**, written entirely in **Go**.
 - A client to **visualize indexed newsgroup articles** fetched from either an open and free **indexer**, or this privately developed **server**.
 
-## 🔧 Technologies Used
+## Technologies Used
 ### Server:
 - **Go** + **Chi**
 - **PostgreSQL**
@@ -23,3 +23,9 @@
 
 ##  Live-demo
 ### COMING SOON!
+
+## Imminent changes and ideas:
+- Move from regular SQL queries to using an ORM
+- Add auth and sessions
+- Full-Text Search
+- Pagination / Infinite scroll
