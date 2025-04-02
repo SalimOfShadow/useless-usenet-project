@@ -7,6 +7,7 @@
 ![Docker](https://img.shields.io/badge/Docker-latest-2496ED?style=flat-square&logo=docker)
 ![Commit Activity](https://img.shields.io/github/commit-activity/m/salimofshadow/useless-usenet-project?style=flat-square&logo=github)
 ![Last Commit](https://img.shields.io/github/last-commit/salimofshadow/useless-usenet-project?style=flat-square&logo=github)
+![Issues](https://img.shields.io/github/issues/salimofshadow/useless-usenet-project?style=flat-square&logo=github)
 ## The goal is to create:
 
 - A server that stores **newsgroups** with a structure similar to **actual Usenet news**, written entirely in **Go**.
